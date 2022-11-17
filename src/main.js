@@ -1,4 +1,4 @@
-import {globals, setupScene, setupCamera, setupRenderer, setupOrbitControls, setupRaycaster} from './setup.js';
+import {globals, setupScene, setupCamera, setupRenderer, setupOrbitControls, setupGUI} from './setup.js';
 
 import updateAspectRatio from './eventfunctions/updateAspectRatio.js';
 
@@ -6,8 +6,8 @@ function main() {
   setupScene();
   setupCamera();
   setupRenderer();
-  setupOrbitControls()
-  setupRaycaster();
+  setupOrbitControls();
+  setupGUI();
 
   mainLoop();
 }
@@ -17,6 +17,6 @@ function mainLoop() {
   requestAnimationFrame(mainLoop);
 }
 
-// Events
+// Browser events
 window.onload = main;
 window.onresize = updateAspectRatio;

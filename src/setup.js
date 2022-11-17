@@ -1,5 +1,8 @@
 import * as THREE from 'three';
 import * as CONTROLS from 'controls';
+import * as DATGUI from 'datgui';
+
+import {onChangeWindSpeed, onChangeWindDirection} from './eventfunctions/guiOnChange.js';
 
 /**
  * Holds variables, which are meant to be global.
@@ -47,4 +50,18 @@ export function setupOrbitControls() {
   const orbitControls = new CONTROLS.OrbitControls(globals.camera, globals.renderer.domElement);
   orbitControls.target = new THREE.Vector3(0, 0, 0);
   orbitControls.update();
+}
+
+/**
+ * Setups the GUI.
+ */
+export function setupGUI() {
+  const gui = new DATGUI.GUI();
+  const proxy = {
+    Wind_Speed: 0, //in km/h
+    Wind_Direction: 0 //In degrees
+  };
+
+  gui.add(proxy, 'Wind_Speed', 0, 100, 1).onChange(onChangeWindSpeed);
+  gui.add(proxy, 'Wind_Direction', 0, 359, 1).onChange(onChangeWindDirection);
 }
