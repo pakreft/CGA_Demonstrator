@@ -7,4 +7,5 @@ export function updateAspectRatio() {
   globals.camera.aspect = window.innerWidth / window.innerHeight;
   globals.camera.updateProjectionMatrix();
   globals.renderer.setSize(window.innerWidth, window.innerHeight);
+  //Test Merlinfsdfsdfsdfsdfsdfsdffeefef
 }
