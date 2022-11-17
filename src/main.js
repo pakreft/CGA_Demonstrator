@@ -1,4 +1,5 @@
 import {globals, setupScene, setupCamera, setupRenderer} from './setup.js';
+import {updateAspectRatio} from "./eventFunctions.js";
 
 function main() {
   setupScene();
@@ -15,3 +16,4 @@ function mainLoop() {
 
 // Events
 window.onload = main;
+window.onresize = updateAspectRatio;
