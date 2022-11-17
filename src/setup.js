@@ -1,6 +1,15 @@
 import * as THREE from 'three';
+import * as CONTROLS from 'controls';
 
+/**
+ * Holds variables, which are meant to be global.
+ * @type {Object}
+ * @property {THREE.Scene} scene - The scene object
+ * @property {THREE.PerspectiveCamera} camera - The camera object
+ * @property {THREE.WebGLRenderer} renderer - The renderer object
+ */
 export const globals = {};
+
 
 /**
  * Setups a scene.
@@ -16,7 +25,6 @@ export function setupScene() {
 export function setupCamera() {
   globals.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
   globals.camera.position.set(30, 40, 50);
-  globals.camera.lookAt(0, 0, 0);
 }
 
 /**
@@ -29,4 +37,14 @@ export function setupRenderer() {
   globals.renderer.shadowMap.enabled = true;
 
   document.getElementById('3d_content').appendChild(globals.renderer.domElement);
+}
+
+
+/**
+ * Setups OrbitControls for the camera.
+ */
+export function setupOrbitControls() {
+  const orbitControls = new CONTROLS.OrbitControls(globals.camera, globals.renderer.domElement);
+  orbitControls.target = new THREE.Vector3(0, 0, 0);
+  orbitControls.update();
 }
