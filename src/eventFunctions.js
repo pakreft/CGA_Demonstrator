@@ -8,3 +8,7 @@ export function updateAspectRatio() {
   globals.camera.updateProjectionMatrix();
   globals.renderer.setSize(window.innerWidth, window.innerHeight);
 }
+
+function addFunction() {
+  return 'Hallo';
+}
