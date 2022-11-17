@@ -1,13 +1,13 @@
-import {globals, setupScene, setupCamera, setupRenderer, setupOrbitControls} from './setup.js';
-import {updateAspectRatio} from './eventFunctions.js';
-import WindGUI from './WindGUI.js';
+import {globals, setupScene, setupCamera, setupRenderer, setupOrbitControls, setupRaycaster} from './setup.js';
+
+import updateAspectRatio from './eventfunctions/updateAspectRatio.js';
 
 function main() {
   setupScene();
   setupCamera();
   setupRenderer();
-
   setupOrbitControls()
+  setupRaycaster();
 
   mainLoop();
 }

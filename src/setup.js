@@ -4,9 +4,10 @@ import * as CONTROLS from 'controls';
 /**
  * Holds variables, which are meant to be global.
  * @type {Object}
- * @property {THREE.Scene} scene - The scene object
- * @property {THREE.PerspectiveCamera} camera - The camera object
- * @property {THREE.WebGLRenderer} renderer - The renderer object
+ * @property {THREE.Scene} scene
+ * @property {THREE.PerspectiveCamera} camera
+ * @property {THREE.WebGLRenderer} renderer
+ * @property {THREE.Raycaster} raycaster
  */
 export const globals = {};
 
@@ -38,7 +39,6 @@ export function setupRenderer() {
 
   document.getElementById('3d_content').appendChild(globals.renderer.domElement);
 }
-
 
 /**
  * Setups OrbitControls for the camera.
