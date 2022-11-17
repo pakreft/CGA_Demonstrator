@@ -10,7 +10,7 @@ export function updateAspectRatio() {
 }
 
 function addFunction() {
-    var text = "Testtt";
+    var textGGGGG = "Testtt";
 
 
   return text;
