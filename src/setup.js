@@ -2,7 +2,10 @@ import * as THREE from 'three';
 import * as CONTROLS from 'controls';
 import * as DATGUI from 'datgui';
 
-import {onChangeWindSpeed, onChangeWindDirection} from './eventfunctions/guiOnChange.js';
+import Ground from './objects/ground.js';
+import Tower from './objects/windturbine/tower.js';
+
+import {onChangeWindSpeed, onChangeWindDirection, onChangeSunPosition} from './eventfunctions/guiOnChange.js';
 
 /**
  * Holds variables, which are meant to be global.
@@ -59,9 +62,17 @@ export function setupGUI() {
   const gui = new DATGUI.GUI();
   const proxy = {
     Wind_Speed: 0, //in km/h
-    Wind_Direction: 0 //In degrees
+    Wind_Direction: 0, //in degrees
   };
 
   gui.add(proxy, 'Wind_Speed', 0, 100, 1).onChange(onChangeWindSpeed);
   gui.add(proxy, 'Wind_Direction', 0, 359, 1).onChange(onChangeWindDirection);
+}
+
+/**
+ * Adds all objects created with three.js to the scene.
+ */
+export function addObjects() {
+  globals.scene.add(new Tower());
+  globals.scene.add(new Ground());
 }
