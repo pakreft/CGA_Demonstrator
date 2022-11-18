@@ -1,4 +1,9 @@
-import {globals, setupScene, setupCamera, setupRenderer, setupOrbitControls, setupGUI, addObjects} from './setup.js';
+import {globals} from './setups/globals.js';
+import setupScene from './setups/scene.js';
+import setupCamera from './setups/camera.js';
+import setupRenderer from './setups/renderer.js';
+import setupOrbitControls from './setups/orbitControls.js';
+import setupGUI from './setups/gui.js';
 
 import updateAspectRatio from './eventfunctions/updateAspectRatio.js';
 
@@ -9,8 +14,6 @@ function main() {
 
   setupOrbitControls();
   setupGUI();
-
-  addObjects();
 
   mainLoop();
 }

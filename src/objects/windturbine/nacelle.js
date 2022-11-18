@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
-export default class Nacelle extends THREE.Mesh {
-    constructor() {
+export default class Nacelle extends THREE.Group {
+    constructor(pos, rotation) {
         super();
     }
 
