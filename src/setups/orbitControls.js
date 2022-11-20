@@ -1,9 +1,7 @@
-import * as THREE from 'three';
 import * as CONTROLS from 'controls';
 
-import {globals} from "./globals.js";
-
-const lookAt = new THREE.Vector3(0, 0, 0);
+import {globals} from './globals.js';
+import {lookAt} from './camera.js';
 
 /**
  * Setups OrbitControls for the camera.

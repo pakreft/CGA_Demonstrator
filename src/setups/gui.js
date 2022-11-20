@@ -1,5 +1,8 @@
 import * as DATGUI from 'datgui';
 
+import {globals} from './globals.js';
+import {posSunStart} from './sunLight.js';
+
 /**
  * Setups the GUI.
  */
@@ -18,18 +21,20 @@ export default function setupGUI() {
 
 /**
  * Fires when the user changes the wind speed via the GUI.
- * @param e
+ * @param p
  */
-function onChangeWindSpeed(e) {}
+function onChangeWindSpeed(p) {}
 
 /**
  * Fires when the user changes the wind direction via the GUI.
- * @param e
+ * @param p
  */
-function onChangeWindDirection(e) {}
+function onChangeWindDirection(p) {}
 
 /**
  * Fires when the user changes the wind direction via the GUI.
- * @param e
+ * @param p
  */
-function onChangeSunPosition(e) {}
+function onChangeSunPosition(p) {
+  globals.sun.position.set(p + posSunStart.x, posSunStart.y, posSunStart.z);
+}

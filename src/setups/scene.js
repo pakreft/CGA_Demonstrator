@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-import {globals} from "./globals.js";
+import {globals} from './globals.js';
 
 /**
  * Setups a scene.
