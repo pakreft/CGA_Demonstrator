@@ -9,6 +9,7 @@ import addTestObj from './setups/objects.js';
 
 import updateAspectRatio from './eventfunctions/updateAspectRatio.js';
 
+
 function main() {
   setupScene();
   setupCamera();

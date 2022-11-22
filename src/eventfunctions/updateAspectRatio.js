@@ -1,5 +1,6 @@
 import {globals} from '../setups/globals.js';
 
+
 /**
  * Fires when the browser window gets resized. This function gets assigned to the window.onresize property.
  */

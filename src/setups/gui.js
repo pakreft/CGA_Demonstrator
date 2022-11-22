@@ -1,7 +1,11 @@
 import * as DATGUI from 'datgui';
 
 import {globals} from './globals.js';
-import {posSunStart} from './sunLight.js';
+import {startingPosSun} from './sunLight.js';
+
+
+const windspeedMin = 0;
+const windspeedMax = 100;
 
 /**
  * Setups the GUI.
@@ -14,9 +18,9 @@ export default function setupGUI() {
     Sun_PositionX: 0
   };
 
-  gui.add(proxy, 'Wind_Speed', 0, 100, 1).onChange(onChangeWindSpeed);
+  gui.add(proxy, 'Wind_Speed', windspeedMin, windspeedMax, 1).onChange(onChangeWindSpeed);
   gui.add(proxy, 'Wind_Direction', 0, 359, 1).onChange(onChangeWindDirection);
-  gui.add(proxy, 'Sun_PositionX', -50, 50, 1).onChange(onChangeSunPosition);
+  gui.add(proxy, 'Sun_PositionX', -300, 300, 1).onChange(onChangeSunPosition); //toDo Im Halbkreis bewegen
 }
 
 /**
@@ -36,5 +40,5 @@ function onChangeWindDirection(p) {}
  * @param p
  */
 function onChangeSunPosition(p) {
-  globals.sun.position.set(p + posSunStart.x, posSunStart.y, posSunStart.z);
+  globals.sun.position.set(p + startingPosSun.x, startingPosSun.y, startingPosSun.z);
 }
