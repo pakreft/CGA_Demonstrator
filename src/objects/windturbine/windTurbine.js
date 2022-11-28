@@ -1,8 +1,7 @@
 import * as THREE from 'three';
-
 import Tower from "./tower.js";
-import Hub from "./hub.js";
-
+import Head from "./head.js";
+import {globals} from "../../setups/globals.js";
 
 export default class WindTurbine extends THREE.Group  {
 
@@ -10,9 +9,10 @@ export default class WindTurbine extends THREE.Group  {
         super();
         this.tower = new Tower(new THREE.Vector3(0,0,0));
         this.add(this.tower);
-        this.hub = new Hub( this.tower.topPos);
-        this.add(this.hub);
+        this.head = new Head( this.tower.topPos);
+        this.add(this.head);
         this.position.set(0,30,0);
+        globals.head  = this.head;
 
 
 

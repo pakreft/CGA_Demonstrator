@@ -16,9 +16,9 @@ function main() {
   setupRenderer();
   setupOrbitControls();
   setupSunLight();
-  setupGUI();
 
   addTestObj();
+  setupGUI();
 
   mainLoop();
 }

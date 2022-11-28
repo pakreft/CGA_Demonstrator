@@ -1,7 +1,10 @@
 import * as DATGUI from 'datgui';
+import * as THREE from 'three';
+
 
 import {globals} from './globals.js';
 import {startingPosSun} from './sunLight.js';
+import {initRotation} from '/src/objects/windturbine/head.js';
 
 
 const windspeedMin = 0;
@@ -15,12 +18,14 @@ export default function setupGUI() {
   const proxy = {
     Wind_Speed: 0, //in km/h
     Wind_Direction: 0, //in degrees
-    Sun_PositionX: 0
+    Sun_PositionX: 0,
+    Head_Rotation: 0
   };
 
   gui.add(proxy, 'Wind_Speed', windspeedMin, windspeedMax, 1).onChange(onChangeWindSpeed);
   gui.add(proxy, 'Wind_Direction', 0, 359, 1).onChange(onChangeWindDirection);
   gui.add(proxy, 'Sun_PositionX', -300, 300, 1).onChange(onChangeSunPosition); //toDo Im Halbkreis bewegen
+ gui.add(proxy, 'Head_Rotation', 0, 360, 1).onChange(onChangeHeadRotation); //
 }
 
 /**
@@ -42,3 +47,15 @@ function onChangeWindDirection(p) {}
 function onChangeSunPosition(p) {
   globals.sun.position.set(p + startingPosSun.x, startingPosSun.y, startingPosSun.z);
 }
+
+
+/**
+ * Fires when the user changes the Head Rotation via the GUI.
+ * @param p
+ */
+function onChangeHeadRotation(p) {
+  globals.head.rotateY( THREE.MathUtils.degToRad(1));
+  window.console.log(globals.head.rotation.y);
+}
+
+
