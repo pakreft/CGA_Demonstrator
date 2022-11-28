@@ -2,11 +2,12 @@ import * as THREE from 'three';
 
 import {globals} from './globals.js';
 import Ground from '../objects/ground.js';
-import Tower from '../objects/windturbine/tower.js';
+import WindTurbine from '../objects/windturbine/windTurbine.js';
+
 
 
 export default function addTestObj() {
-  let tower = new Tower(new THREE.Vector3(0, 0, 0));
-  globals.scene.add(tower);
+  let windTurbine = new WindTurbine(new THREE.Vector3(0, 0, 0),new THREE.Vector3(0,0,0));
+  globals.scene.add(windTurbine);
   globals.scene.add(new Ground());
 }
