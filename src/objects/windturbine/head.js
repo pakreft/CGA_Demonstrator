@@ -1,5 +1,7 @@
 import * as THREE from 'three';
-export const initRotation =70;
+import * as TWEEN from 'tween';
+import {globals} from '../../setups/globals.js';
+export const initRotation =0;
 
 export default class Head extends THREE.Mesh {
     constructor(pos) {
@@ -14,12 +16,27 @@ export default class Head extends THREE.Mesh {
         geometry.rotateY( THREE.MathUtils.degToRad(initRotation));
 
         super(geometry, material);
+        globals.head  = this;
+
         this.castShadow = true;
         this.receiveShadow = true;
-        window.console.log(this.rotateY.toString();
 
+        this.rotateHeadAnimation = new TWEEN.Tween(globals.head.rotation);
 
     }
+
+
+    rotateHead(targetAngle)
+    {
+        this.rotateHeadAnimation.to(new THREE.Vector3(
+            this.rotation.x,
+            targetAngle,
+            this.rotation.z), 2000)
+            .easing(TWEEN.Easing.Quadratic.Out);
+
+    }
+
+
 
 
 }

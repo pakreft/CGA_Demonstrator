@@ -38,7 +38,14 @@ function onChangeWindSpeed(p) {}
  * Fires when the user changes the wind direction via the GUI.
  * @param p
  */
-function onChangeWindDirection(p) {}
+function onChangeWindDirection(p) {
+
+
+
+    onChangeHeadRotation(p);
+
+
+}
 
 /**
  * Fires when the user changes the wind direction via the GUI.
@@ -54,8 +61,8 @@ function onChangeSunPosition(p) {
  * @param p
  */
 function onChangeHeadRotation(p) {
-  globals.head.rotateY( THREE.MathUtils.degToRad(1));
-  window.console.log(globals.head.rotation.y);
+globals.head.rotateHead(p);
+globals.head.rotateHeadAnimation.start();
 }
 
 
