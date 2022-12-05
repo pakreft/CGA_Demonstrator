@@ -61,8 +61,7 @@ function onChangeSunPosition(p) {
  * @param p
  */
 function onChangeHeadRotation(p) {
-globals.head.rotateHead(p);
-globals.head.rotateHeadAnimation.start();
+globals.windTurbine.head.startAnimation(p);
 }
 
 

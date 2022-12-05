@@ -7,6 +7,7 @@ import setupSunLight from './setups/sunLight.js';
 import setupGUI from './setups/gui.js';
 import addTestObj from './setups/objects.js';
 import * as THREE from 'three';
+import * as TWEEN from 'tween';
 
 import updateAspectRatio from './eventfunctions/updateAspectRatio.js';
 
@@ -26,10 +27,11 @@ function main() {
 const clock = new THREE.Clock();
 
 function mainLoop() {
+
   const delta = clock.getDelta();
-  //globals.updateAnimations.animationList.forEach(function (animation) {animation.update(delta);});
   globals.renderer.render(globals.scene, globals.camera);
   requestAnimationFrame(mainLoop);
+  TWEEN.update();
 
 }
 
