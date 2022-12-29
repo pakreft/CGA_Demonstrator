@@ -4,7 +4,7 @@ import * as THREE from 'three';
 
 import {globals} from './globals.js';
 import {startingPosSun} from './sunLight.js';
-import {initRotation} from '/src/objects/windturbine/head.js';
+import {BladeAngle, HeadRotation} from "../assets/Animations.js";
 
 
 const windspeedMin = 0;
@@ -15,17 +15,17 @@ const windspeedMax = 100;
  */
 export default function setupGUI() {
   const gui = new DATGUI.GUI();
+
   const proxy = {
     Wind_Speed: 0, //in km/h
     Wind_Direction: 0, //in degrees
     Sun_PositionX: 0,
-    Head_Rotation: 0
+    Blades_angle_of_Attack: globals.windTurbine.blade1.rotation.y
   };
-
   gui.add(proxy, 'Wind_Speed', windspeedMin, windspeedMax, 1).onChange(onChangeWindSpeed);
   gui.add(proxy, 'Wind_Direction', 0, 359, 1).onChange(onChangeWindDirection);
   gui.add(proxy, 'Sun_PositionX', -300, 300, 1).onChange(onChangeSunPosition); //toDo Im Halbkreis bewegen
- gui.add(proxy, 'Head_Rotation', 0, 360, 1).onChange(onChangeHeadRotation); //
+  gui.add(proxy, 'Blades_angle_of_Attack', 0, 90, 1).onChange(onChangeBladeAngle); //
 }
 
 /**
@@ -41,8 +41,7 @@ function onChangeWindSpeed(p) {}
 function onChangeWindDirection(p) {
 
 
-
-    onChangeHeadRotation(p);
+  HeadRotation(globals.windTurbine.headGroup,p);
 
 
 }
@@ -57,11 +56,15 @@ function onChangeSunPosition(p) {
 
 
 /**
- * Fires when the user changes the Head Rotation via the GUI.
+ * Fires when the user changes the Gearbox Rotation via the GUI.
  * @param p
  */
-function onChangeHeadRotation(p) {
-globals.windTurbine.head.startAnimation(p);
+function onChangeBladeAngle(p) {
+
+  BladeAngle(globals.windTurbine.blade1,p);
+  BladeAngle(globals.windTurbine.blade2,p);
+  BladeAngle(globals.windTurbine.blade3,p);
+
 }
 
 

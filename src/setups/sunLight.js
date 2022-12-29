@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import {globals} from './globals.js';
 
 
-export const startingPosSun = new THREE.Vector3(0, 80, 0);
+export const startingPosSun = new THREE.Vector3(0, 200, 0);
 const ambientColor = 0xffffff;
 const sunColor = ambientColor;
 const ambientIntensity = 0.8;

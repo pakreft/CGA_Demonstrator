@@ -11,7 +11,6 @@ export default class Ground extends THREE.Mesh {
         const geometry = new THREE.PlaneGeometry(width, height);
         const material = new THREE.MeshLambertMaterial({color: materialColor});
         geometry.rotateX(THREE.MathUtils.degToRad(-90));
-
         super(geometry, material);
         this.receiveShadow = true;
     }

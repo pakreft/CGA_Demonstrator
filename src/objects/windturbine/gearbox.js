@@ -2,14 +2,14 @@ import * as THREE from "three";
 import * as TWEEN from 'tween';
 export const initRotation =0;
 
-export default class Head extends THREE.Mesh {
+export default class Gearbox extends THREE.Mesh {
     constructor(pos) {
 
-
-        const height = 20;
+        const width = 8;
+        const height = 6;
+        const depth = 16;
         const materialColor = 0xaaaaaa;
-
-        const geometry = new THREE.BoxGeometry(height,height,height,height,height,height);
+        const geometry = new THREE.BoxGeometry(width,height,depth,16,16,16);
         const material = new THREE.MeshLambertMaterial({color: materialColor});
         geometry.translate(pos.x, pos.y + (height / 2), pos.z);
         geometry.rotateY( THREE.MathUtils.degToRad(initRotation));
@@ -21,6 +21,13 @@ export default class Head extends THREE.Mesh {
 
         this.rotateHeadAnimation = new TWEEN.Tween(this.rotation);
         this.animationRunning = false;
+        this.boundingBox = new THREE.Box3().setFromObject(this);
+
+
+            this.rotorMount = new THREE.Vector3(((this.boundingBox.max.x + this.boundingBox.min.x) / 2),
+                ((this.boundingBox.max.y + this.boundingBox.min.y) / 2), this.boundingBox.max.z + 0.4);
+
+
 
     }
 
@@ -35,15 +42,11 @@ export default class Head extends THREE.Mesh {
             .onComplete(function() {
                 // Set the animationRunning flag to false when the animation is complete
                 this.animationRunning = false;
-                window.console.log("DONE");
                 window.console.log(this.animationRunning);
             });
-        window.console.log("Nach OnComplete: ", this.animationRunning);
 
 // Start the tween animation
 
-        window.console.log("Y ANGLE: ",this.rotation.y);
-        window.console.log("TTTTARGET Angle: ", targetAngle);
 
     }
     startAnimation(targetAngle) {

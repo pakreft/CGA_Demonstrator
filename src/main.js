@@ -33,6 +33,8 @@ function mainLoop() {
   requestAnimationFrame(mainLoop);
   TWEEN.update();
 
+
+
 }
 
 // Browser events
