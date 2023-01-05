@@ -44,14 +44,14 @@ export default class Blades extends THREE.Mesh {
         }
 
         changeBladeAngle(val){
-
+            let yaxis = new THREE.Vector3(0,1,0);
 
             if (val > this.rotation.y){
-                this.rotateOnAxis(new THREE.Vector3(0,1,0),val-this.rotation.y);
+                this.rotateOnAxis(yaxis,val-this.rotation.y);
             }
 
             else if (val < this.rotation.y){
-                this.rotateOnAxis(new THREE.Vector3(0,1,0),val-this.rotation.y);
+                this.rotateOnAxis(yaxis,val-this.rotation.y);
             }
             else{return;
             }
