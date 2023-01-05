@@ -48,7 +48,7 @@ export default class WindTurbine extends THREE.Group  {
         this.shroud.add(this.bladeGroup);
 
         //Adding Blade 1 to the BladeGroup
-        this.blade1 = new blade(this.gearbox.rotorMount, new THREE.Vector3(0, 0, 0));
+        this.blade1 = new blade(this.gearbox.rotorMount, new THREE.Vector3(0,0, 0));
         this.bladeGroup.add(this.blade1);
 
         //Adding Blade 2 to the BladeGroup
@@ -57,16 +57,16 @@ export default class WindTurbine extends THREE.Group  {
 
         //Adding Blade 3 to the BladeGroup
         this.blade3 = new blade(this.gearbox.rotorMount, new THREE.Vector3(0, 0, 240));
-
-
-
         this.bladeGroup.add(this.blade3);
 
+        window.console.log("Blade3: ",this.blade3);
+        window.console.log("OBJ: ",this.blade1);
 
 
-        window.console.log("BladeRot: ",this.blade1.rotation);
-        window.console.log("Blade2 Matrix World: ",this.blade2.matrixWorld);
-        BladeRotation(this.shroud);
+
+
+
+       // BladeRotation(this.shroud);
     }
 
 
