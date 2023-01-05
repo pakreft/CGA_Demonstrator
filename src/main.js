@@ -10,6 +10,7 @@ import * as THREE from 'three';
 import * as TWEEN from 'tween';
 
 import updateAspectRatio from './eventfunctions/updateAspectRatio.js';
+import {highlightOnMouseOver, interactOnMouseClick} from "./eventfunctions/raycasting.js";
 
 
 function main() {
@@ -28,15 +29,16 @@ const clock = new THREE.Clock();
 
 function mainLoop() {
 
+
   const delta = clock.getDelta();
   globals.renderer.render(globals.scene, globals.camera);
   requestAnimationFrame(mainLoop);
   TWEEN.update();
-
-
 
 }
 
 // Browser events
 window.onload = main;
 window.onresize = updateAspectRatio;
+window.onmousemove = highlightOnMouseOver;
+window.onclick = interactOnMouseClick;

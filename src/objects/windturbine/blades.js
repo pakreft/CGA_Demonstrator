@@ -14,12 +14,15 @@ export default class Blades extends THREE.Mesh {
             const geometry = new THREE.BoxGeometry(width,height,depth,16,16,16);
             const material = new THREE.MeshLambertMaterial({color: materialColor});
 
+
             geometry.translate(geometry.parameters.width/2,geometry.parameters.height/2+2.8, geometry.parameters.depth/2);
 
             super(geometry, material);
             this.castShadow = true;
             this.receiveShadow = true;
             this.animationRunning = false;
+            this.layers.enable(1);
+
 
             window.console.log(this);
 
