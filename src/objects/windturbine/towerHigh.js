@@ -5,9 +5,9 @@ import * as THREE from 'three';
 export default class TowerHigh extends THREE.Mesh {
 
     constructor(pos) {
-        const radiusTop = 2;
-        const radiusBottom = 2;
-        const height = 50;
+        const radiusTop = 1.8;
+        const radiusBottom = 1.8;
+        const height = 58;
         const radialSegments = 64;
         const heightSegments = 16;
 
