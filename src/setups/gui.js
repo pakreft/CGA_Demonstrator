@@ -20,7 +20,7 @@ export default function setupGUI() {
     Wind_Speed: 0, //in km/h
     Wind_Direction: 0, //in degrees
     Sun_PositionX: 0,
-    Blades_angle_of_Attack: globals.windTurbine.blade1.rotation.y
+    Blades_angle_of_Attack: globals.windTurbine.blade3.rotation.y
   };
   gui.add(proxy, 'Wind_Speed', windspeedMin, windspeedMax, 1).onChange(onChangeWindSpeed);
   gui.add(proxy, 'Wind_Direction', 0, 359, 1).onChange(onChangeWindDirection);
@@ -60,11 +60,11 @@ function onChangeSunPosition(p) {
  * @param p
  */
 function onChangeBladeAngle(p) {
-
-  BladeAngle(globals.windTurbine.blade1,p);
-  BladeAngle(globals.windTurbine.blade2,p);
-  BladeAngle(globals.windTurbine.blade3,p);
+  if (p > 0&& p < 90){
+    globals.windTurbine.blade1.changeBladeAngle(THREE.MathUtils.degToRad(p));
+    globals.windTurbine.blade2.changeBladeAngle(THREE.MathUtils.degToRad(p));
+    globals.windTurbine.blade3.changeBladeAngle(THREE.MathUtils.degToRad(p));
+    window.console.log(p);
+  }
 
 }
-
-
