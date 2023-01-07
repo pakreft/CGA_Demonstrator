@@ -10,7 +10,9 @@ import * as THREE from 'three';
 import * as TWEEN from 'tween';
 
 import updateAspectRatio from './eventfunctions/updateAspectRatio.js';
-import {highlightOnMouseOver, interactOnMouseClick} from "./eventfunctions/raycasting.js";
+import {highlightOnMouseOver, actionOnMouseClick} from "./eventfunctions/raycasting.js";
+
+import initOutlinePass from "./postprocessing/postprocessing.js";
 
 
 function main() {
@@ -19,7 +21,7 @@ function main() {
   setupRenderer();
   setupOrbitControls();
   setupSunLight();
-
+  initOutlinePass();
   addTestObj();
   setupGUI();
 
@@ -31,7 +33,8 @@ function mainLoop() {
 
 
   const delta = clock.getDelta();
-  globals.renderer.render(globals.scene, globals.camera);
+  //globals.renderer.render(globals.scene, globals.camera);
+  window.compose.render();
   requestAnimationFrame(mainLoop);
   TWEEN.update();
 
@@ -41,4 +44,4 @@ function mainLoop() {
 window.onload = main;
 window.onresize = updateAspectRatio;
 window.onmousemove = highlightOnMouseOver;
-window.onclick = interactOnMouseClick;
+window.onclick = actionOnMouseClick;

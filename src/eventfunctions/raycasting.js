@@ -21,28 +21,27 @@ function executeRaycast(event) {
 }
 
 export function highlightOnMouseOver(event) {
+  window.outlinePass.selectedObjects = [];
 
   const intersects = executeRaycast(event);
   if (intersects.length > 0) {
 
     const hit = intersects[0];
-    window.console.log(hit);
-    //ToDo Highlight Object
-    //window.outline.selectedObjects = [hit];
+    window.outlinePass.selectedObjects = [hit.object];
   }
 
 }
 
-export function interactOnMouseClick(event) {
+export function actionOnMouseClick(event) {
 
   const intersects = executeRaycast(event);
   if (intersects.length > 0) {
 
     const hit = intersects[0];
-    if (hit.interaction === undefined) {
-      window.console.log("Object has no property 'interaction', which has to hold a function.");
+    if (hit.actionOnClick === undefined) {
+      window.console.log("Object has no property 'actionOnClick', which has to hold a function.");
     } else {
-      hit.interaction();
+      hit.actionOnClick();
     }
 
   }
