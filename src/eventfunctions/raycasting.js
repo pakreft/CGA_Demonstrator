@@ -21,11 +21,11 @@ function executeRaycast(event) {
 }
 
 export function highlightOnMouseOver(event) {
+
   window.outlinePass.selectedObjects = [];
-
   const intersects = executeRaycast(event);
-  if (intersects.length > 0) {
 
+  if (intersects.length > 0) {
     const hit = intersects[0];
     window.outlinePass.selectedObjects = [hit.object];
   }
@@ -37,9 +37,9 @@ export function actionOnMouseClick(event) {
   const intersects = executeRaycast(event);
   if (intersects.length > 0) {
 
-    const hit = intersects[0];
+    const hit = intersects[0].object;
     if (hit.actionOnClick === undefined) {
-      window.console.log("Object has no property 'actionOnClick', which has to hold a function.");
+      window.console.log("Object has no function 'actionOnClick'.");
     } else {
       hit.actionOnClick();
     }
