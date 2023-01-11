@@ -29,15 +29,16 @@ export default class Button extends BaseObject {
 
   /**
    * Animates the button, making him either go down or up.
-   * @param {1|-1} dir - Direction the button moves along local y-axis. 1 means button moves up (as if released) and -1 means button moves down (as if pressed).
+   * @param {1|-1} dir - Direction the button moves along its local y-axis. 1 means button moves up (as if released) and -1 means button moves down (as if pressed).
    */
   moveButton(dir) {
-    const tween = new TWEEN.Tween(this.position);
     const time = 100;
     const dist = 2;
+    const tween = new TWEEN.Tween(this.position);
 
+    // Calculate direction the button moves in world space, its rotation included!
     const dirVec = new THREE.Vector3(0, dir * dist, 0);
-    const dirVecRotated = dirVec.applyEuler(this.rotation); // Rotate vector same as object is currently rotated
+    const dirVecRotated = dirVec.applyEuler(this.rotation);
     const target = this.position.add(dirVecRotated);
 
     tween.to({x: target.x, y:  target.y, z: target.z}, time);
