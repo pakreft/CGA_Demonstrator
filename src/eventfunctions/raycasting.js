@@ -38,10 +38,10 @@ export function actionOnMouseClick(event) {
   if (intersects.length > 0) {
 
     const hit = intersects[0].object;
-    if (hit.actionOnClick === undefined) {
+    if (hit.actionOnMouseDown === undefined) {
       window.console.log("Object has no function 'actionOnClick'.");
     } else {
-      hit.actionOnClick();
+      hit.actionOnMouseDown();
     }
 
   }

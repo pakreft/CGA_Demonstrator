@@ -44,4 +44,4 @@ function mainLoop() {
 window.onload = main;
 window.onresize = updateAspectRatio;
 window.onmousemove = highlightOnMouseOver;
-window.onclick = actionOnMouseClick;
+window.onmousedown = actionOnMouseClick;
