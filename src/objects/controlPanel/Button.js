@@ -1,15 +1,18 @@
 import * as THREE from 'three';
 import * as TWEEN from 'tween';
 
+import {globals} from '../../setups/globals.js';
 import BaseObject from '../BaseObject.js';
+import TweenUtils from '../../assets/TweenUtils.js';
 
 /**
- * Class representing a button on the control panel.
+ * Class representing a button on the control panel controlling the rotation of the windturbine-head.
  * @extends BaseObject
  */
 export default class Button extends BaseObject {
 
   /**
+   * Pivot point at the bottom, in the middle.
    * @param {{x: number, y: number, z: number}} pos - Objects position in world space.
    * @param {{x: number, y: number, z: number}} rot - Objects rotation in world space in degrees.
    */
@@ -21,42 +24,44 @@ export default class Button extends BaseObject {
 
     super(pos, rot, geometry, material);
 
-    this.pressed = false;
-
     // Make hittable by ray caster
     this.layers.enable(1);
   }
 
   /**
-   * Animates the button, making him either go down or up.
+   * Animates the button via tween, making him either go down or up.
    * @param {1|-1} dir - Direction the button moves along its local y-axis. 1 means button moves up (as if released) and -1 means button moves down (as if pressed).
    */
   moveButton(dir) {
     const time = 100;
-    const dist = 2;
-    const tween = new TWEEN.Tween(this.position);
+    const distance = 3;
+    const target = new THREE.Vector3(0, dir * distance, 0);
 
-    // Calculate direction the button moves in world space, its rotation included!
-    const dirVec = new THREE.Vector3(0, dir * dist, 0);
-    const dirVecRotated = dirVec.applyEuler(this.rotation);
-    const target = this.position.add(dirVecRotated);
-
-    tween.to({x: target.x, y:  target.y, z: target.z}, time);
-    tween.start();
+    TweenUtils.translate(this, target, time);
   }
 
   /**
-   * Fires when the user clicks on this object. Function needed by the ray caster. Called in actionOnMouseClick().
+   * Fires when the user clicks on this object. Function needed by the ray caster. Called in actionOnMouseDown().
    */
-  actionOnClick() {
-    if (this.pressed == false) {
-      this.moveButton(-1);
-      this.pressed = true;
+  actionOnMouseDown() {
 
-    } else {
-      this.moveButton(1);
-      this.pressed = false;
-    }
+    let tween = TweenUtils.rotate(
+        globals.windTurbine.headGroup,
+        new THREE.Euler(0, THREE.MathUtils.degToRad(360), 0),
+        3000
+    );
+    tween.repeat(Infinity);
+    tween.start();
+    this.moveButton(-1);
+
+    // Mouse-Button released
+    const thisButton = this;
+    
+    window.onmouseup = function(event) {
+      TWEEN.remove(tween);
+      thisButton.moveButton(1);
+      window.onmouseup = null;
+    };
   }
 
 }
