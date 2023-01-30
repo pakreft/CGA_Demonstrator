@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 /**
- * Base class for all meshes/groups. Only inherit from this.
+ * Base class for all meshes/groups. Only inherit from this, do not instantiate.
  * @extends Group
  * @abstract
  */
@@ -16,7 +16,7 @@ export default class BaseObj extends THREE.Group {
     super();
 
     // Add meshes/groups to this group
-    for(let i = 0; i <= objects.length; i++) {
+    for(let i = 0; i < objects.length; i++) {
       this.add(objects[i]);
     }
 
