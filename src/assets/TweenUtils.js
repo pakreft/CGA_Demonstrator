@@ -19,7 +19,7 @@ export default class TweenUtils {
   static translate(obj, target, time, easing = TWEEN.Easing.Linear.None) {
     const tween = new TWEEN.Tween(obj.position);
 
-    const targetRotated = target.applyEuler(obj.position);
+    const targetRotated = target.applyEuler(obj.rotation);
     const targetTranslated = obj.position.add(targetRotated);
     const finalTarget = targetTranslated;
 
