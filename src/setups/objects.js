@@ -29,6 +29,27 @@ export default function addTestObj() {
     const WindTurbineGLTF =  gltf.scene;
     // Add the model to the scene
     WindTurbineGLTF.position.set(-20,0,0);
+    var texture = new THREE.TextureLoader().load( "src/assets/Textures/metal-sheet.jpeg" );
+    texture.repeat.set(1,2);
+
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+
+    var material = new THREE.MeshBasicMaterial( { map: texture } );
+
+    WindTurbineGLTF.traverse((child) => {
+      if (child.name === 'Pole') {
+
+        child.traverse( function ( child ) {
+          if ( child.isMesh ) {
+            child.material = material;
+          }
+        });
+
+      }
+    });
+
+
 
 
     globals.scene.add(WindTurbineGLTF);
