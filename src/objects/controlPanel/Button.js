@@ -1,46 +1,31 @@
 import * as THREE from 'three';
 import * as TWEEN from 'tween';
 
-import BaseObj from '../BaseObj.js';
-import TweenUtils from '../../assets/TweenUtils.js';
 import {globals} from '../../setups/globals.js';
+import BaseObject from '../BaseObject.js';
+import TweenUtils from '../../assets/TweenUtils.js';
 
 /**
- * Class representing a button on the control panel.
- * @extends BaseObj
- * @property {Mesh} mesh
+ * Class representing a button on the control panel controlling the rotation of the windturbine-head.
+ * @extends BaseObject
  */
-export default class Button extends BaseObj {
+export default class Button extends BaseObject {
 
   /**
    * Pivot point at the bottom, in the middle.
-   * @param {-1|1} headDir - Direction the wind turbine head has to go. -1 is left, 1 right.
-   * @param {{x:number, y:number, z:number}} [pos={x:0,y:0,z:0}] - Objects position in world space.
-   * @param {{x:number, y:number, z:number}} [rot={x:0,y:0,z:0}] - Objects rotation in world space in degrees.
+   * @param {{x: number, y: number, z: number}} pos - Objects position in world space.
+   * @param {{x: number, y: number, z: number}} rot - Objects rotation in world space in degrees.
    */
-  constructor(headDir, pos = {x:0, y:0, z:0}, rot = {x:0, y:0, z:0}) {
+  constructor(pos, rot) {
 
-    // Create mesh and set position
+    // Create geometry and material
     const geometry = new THREE.CylinderGeometry(2, 2, 3, 30);
     const material = new THREE.MeshLambertMaterial({color: 0xff0000});
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.position.set(0, geometry.parameters.height / 2, 0);
 
-    super(pos, rot, [mesh]);
+    super(pos, rot, geometry, material);
 
     // Make hittable by ray caster
     this.layers.enable(1);
-
-    this.castShadow = true;
-    this.receiveShadow = true;
-
-    // Own properties
-    this.mesh = mesh;
-    /**
-     * @readonly
-     * @type {-1|1}
-     */
-    this.headDir = headDir;
   }
 
   /**
@@ -62,7 +47,7 @@ export default class Button extends BaseObj {
 
     let tween = TweenUtils.rotate(
         globals.windTurbine.headGroup,
-        new THREE.Euler(0, THREE.MathUtils.degToRad(360 * this.headDir), 0),
+        new THREE.Euler(0, THREE.MathUtils.degToRad(360), 0),
         3000
     );
     tween.repeat(Infinity);
