@@ -11,15 +11,6 @@ import * as TWEEN from 'tween';
     tween.start();
     }
 
-    export function HeadRotation (obj,angle){
-    const targetRotation = new THREE.Vector3(0,THREE.MathUtils.degToRad(angle),0);
-    let tween = new TWEEN.Tween(obj.rotation)
-        .to(targetRotation, 2000)
-        .easing(TWEEN.Easing.Quintic.InOut);
-    tween.start();
-    }
-
-
 export function BladeAngle (obj,angle) {
  window.console.log(typeof obj.rotation, THREE.MathUtils.degToRad(angle));
  let target = obj.rotation;

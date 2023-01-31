@@ -4,7 +4,6 @@ import * as THREE from 'three';
 
 import {globals} from './globals.js';
 import {startingPosSun} from './sunLight.js';
-import {BladeAngle, HeadRotation} from "../assets/Animations.js";
 
 
 const windspeedMin = 0;
@@ -39,10 +38,6 @@ function onChangeWindSpeed(p) {}
  * @param p
  */
 function onChangeWindDirection(p) {
-
-
-  HeadRotation(globals.windTurbine.headGroup,p);
-
 
 }
 
