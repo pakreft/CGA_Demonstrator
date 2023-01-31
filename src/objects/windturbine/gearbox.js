@@ -10,7 +10,17 @@ export default class Gearbox extends THREE.Mesh {
         const depth = 16;
         const materialColor = 0xaaaaaa;
         const geometry = new THREE.BoxGeometry(width,height,depth,16,16,16);
-        const material = new THREE.MeshLambertMaterial({color: materialColor});
+
+        const texture = new THREE.TextureLoader().load( "src/assets/Textures/gearbox_texture.png" );
+        texture.rotation = THREE.MathUtils.degToRad(0);
+        texture.repeat.set(1,1);
+
+        //texture.wrapS = THREE.RepeatWrapping;
+        //texture.wrapT = THREE.RepeatWrapping;
+
+        const material = new THREE.MeshBasicMaterial( { map: texture } );
+
+
         geometry.translate(pos.x, pos.y + (height / 2), pos.z);
         geometry.rotateY( THREE.MathUtils.degToRad(initRotation));
 

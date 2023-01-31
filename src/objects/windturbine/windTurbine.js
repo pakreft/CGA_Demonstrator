@@ -29,6 +29,10 @@ export default class WindTurbine extends THREE.Group  {
         this.towerGroup.add(this.towerHigh);
 
 
+
+
+
+
         this.headGroup = new THREE.Group();
         this.headGroup.position.set(this.position.x,this.position.y,this.position.z);
         this.add(this.headGroup);
@@ -49,14 +53,19 @@ export default class WindTurbine extends THREE.Group  {
 
         //Adding Blade 1 to the BladeGroup
         this.blade1 = new blade(this.gearbox.rotorMount, new THREE.Vector3(0,0, 0));
+        this.blade1.addPhysics();
+
         this.bladeGroup.add(this.blade1);
 
         //Adding Blade 2 to the BladeGroup
         this.blade2 = new blade(this.gearbox.rotorMount, new THREE.Vector3(0, 0, 120));
-       this.bladeGroup.add(this.blade2);
+        this.blade2.addPhysics();
+
+        this.bladeGroup.add(this.blade2);
 
         //Adding Blade 3 to the BladeGroup
         this.blade3 = new blade(this.gearbox.rotorMount, new THREE.Vector3(0, 0, 240));
+        this.blade3.addPhysics();
         this.bladeGroup.add(this.blade3);
 
         window.console.log("Blade3: ",this.blade3);

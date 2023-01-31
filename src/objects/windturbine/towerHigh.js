@@ -11,9 +11,17 @@ export default class TowerHigh extends THREE.Mesh {
         const radialSegments = 64;
         const heightSegments = 16;
 
-        const materialColor = 0xaaaaaa;
         const geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, radialSegments, heightSegments);
-        const material = new THREE.MeshLambertMaterial({color: materialColor});
+
+        const texture = new THREE.TextureLoader().load( "src/assets/Textures/windturbine_texture.png" );
+        texture.rotation = THREE.MathUtils.degToRad(0);
+        texture.repeat.set(1,0.3);
+
+        texture.wrapS = THREE.RepeatWrapping;
+        texture.wrapT = THREE.RepeatWrapping;
+
+        const material = new THREE.MeshBasicMaterial( { map: texture } );
+
         geometry.translate(pos.x, pos.y + (height / 2), pos.z);
 
         super(geometry, material);

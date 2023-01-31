@@ -12,7 +12,7 @@ import Button from "../objects/controlPanel/button.js";
 
 export default function addTestObj() {
 
-  let windTurbine = new WindTurbine(new THREE.Vector3(20,0,0),new THREE.Vector3(0,0,0));
+  let windTurbine = new WindTurbine(new THREE.Vector3(30,0,0),new THREE.Vector3(0,0,0));
   globals.scene.add(windTurbine);
   globals.windTurbine = windTurbine;
 
@@ -25,29 +25,77 @@ export default function addTestObj() {
   let loader = new GLTFLoader();
 // Load the glTF file
   loader.load("src/assets/Models/windrad_export.gltf", function (gltf) {
-
     const WindTurbineGLTF =  gltf.scene;
     // Add the model to the scene
-    WindTurbineGLTF.position.set(-20,0,0);
-    var texture = new THREE.TextureLoader().load( "src/assets/Textures/metal-sheet.jpeg" );
-    texture.repeat.set(1,2);
+    WindTurbineGLTF.position.set(-30,0,0);
 
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.RepeatWrapping;
+    //Tower Texture
+    var towerTexture = new THREE.TextureLoader().load( "src/assets/Textures/windturbine_texture.png" );
+    //towerTexture.wrapS = THREE.RepeatWrapping;
+    //towerTexture.wrapT = THREE.RepeatWrapping;
+    towerTexture.repeat.set(1,1);
 
-    var material = new THREE.MeshBasicMaterial( { map: texture } );
-
+    var towerMaterial = new THREE.MeshBasicMaterial( { map: towerTexture} );
     WindTurbineGLTF.traverse((child) => {
-      if (child.name === 'Pole') {
-
+      if (child.name === 'Tower') {
         child.traverse( function ( child ) {
           if ( child.isMesh ) {
-            child.material = material;
+            child.material = towerMaterial;
           }
         });
 
       }
     });
+
+    //Gearbox Texture
+    var gearboxTexture = new THREE.TextureLoader().load( "src/assets/Textures/gearbox_texture.png" );
+    gearboxTexture.repeat.set(1,1);
+    //gearboxTexture.wrapS = THREE.RepeatWrapping;
+    //gearboxTexture.wrapT = THREE.RepeatWrapping;
+    var gearboxMaterial = new THREE.MeshStandardMaterial({
+      color: 0xffffff,
+      roughness: 0.7,
+      metalness: 0.4,
+
+    });
+    WindTurbineGLTF.traverse((child) => {
+      if (child.name === 'Gearbox') {
+        child.traverse( function ( child ) {
+          if ( child.isMesh ) {
+            window.console.log("child",child);
+            child.material = gearboxMaterial;
+          }
+        });
+
+      }
+      if (child.name === 'Blades') {
+        child.traverse( function ( child ) {
+          if ( child.isMesh ) {
+            window.console.log("child",child);
+            child.material = gearboxMaterial;
+          }
+        });
+
+      }
+
+      var HubMaterial = new THREE.MeshStandardMaterial({
+        color: 0xfda300,
+        roughness: 0.7,
+        metalness: 0.3,
+
+      });
+      if (child.name === 'Hub') {
+        child.traverse( function ( child ) {
+          if ( child.isMesh ) {
+            window.console.log("child",child);
+            child.material = HubMaterial;
+          }
+        });
+
+      }
+
+    });
+
 
 
 
@@ -55,18 +103,43 @@ export default function addTestObj() {
     globals.scene.add(WindTurbineGLTF);
   window.console.log(WindTurbineGLTF);
 
-
-    WindTurbineGLTF.traverse((child) => {
-      if (child.name === 'Head') {
-        window.console.log('Found Head:', child);
-
-
-      }
-    });
   });
 
+  loader.load("src/assets/Models/windsack.gltf", function (gltf) {
+    const WindsackGLTF =  gltf.scene;
+    // Add the model to the scene
+    WindsackGLTF.position.set(0,0,-20);
 
+
+
+
+
+
+
+
+
+    globals.scene.add(WindsackGLTF);
+    window.console.log(WindsackGLTF);
+
+});
 
   globals.scene.add(new Ground());
   window.console.log(globals.scene);
+
+  var box = new THREE.Box3();
+  for (var i = 0; i < globals.scene.children.length; i++) {
+    var mesh = globals.scene.children[i];
+
+    // check if the child is a mesh
+    if (mesh.isGroup) {
+      window.console.log("isGroup!",mesh);
+      // update the bounding box to fit the mesh
+      box.setFromObject(mesh);
+
+      // do something with the bounding box
+      // ...
+    }
+  }
+
+
 }

@@ -34,6 +34,8 @@ function mainLoop() {
 
   const delta = clock.getDelta();
   //globals.renderer.render(globals.scene, globals.camera);
+  window.physics.update(delta);
+
   window.compose.render();
   requestAnimationFrame(mainLoop);
   TWEEN.update();

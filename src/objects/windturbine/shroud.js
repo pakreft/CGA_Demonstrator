@@ -16,7 +16,12 @@ export default class Shroud extends THREE.Group {
             //Cylinder of the shroud
             const geometry2 = new THREE.CylinderGeometry(topRad,topRad, height,segments,segments);
 
-            const material = new THREE.MeshLambertMaterial(materialColor);
+            const material = new THREE.MeshStandardMaterial({
+                color: 0xfda300,
+                roughness: 0.7,
+                metalness: 0.3,
+
+            });
 
             const cone = new THREE.Mesh(geometry1,material);
             const cylinder = new THREE.Mesh(geometry2,material);
