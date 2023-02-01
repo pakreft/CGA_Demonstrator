@@ -6,6 +6,8 @@ import WindTurbine from '../objects/windturbine/windTurbine.js';
 import Blades from '../objects/windturbine/blades.js';
 import { GLTFLoader } from '../../lib/three.js-r145/examples/jsm/loaders/GLTFLoader.js';
 import Button from "../objects/controlPanel/button.js";
+import * as CANNON from "../../lib/cannon-es-0.20.0/dist/cannon-es.js";
+
 
 
 
@@ -97,8 +99,33 @@ export default function addTestObj() {
 
 
 
+        window.console.log(WindTurbineGLTF.position.x);
+        globals.physics.addCylinder(WindTurbineGLTF,0,6,10,100,8,WindTurbineGLTF.position.x+30,WindTurbineGLTF.position.y+51,WindTurbineGLTF.position.z);
+
+        const dimension = new CANNON.Vec3(4, 3, 10);
+        const dimension2 = new CANNON.Vec3(35, 35, 1);
+        const offset = new CANNON.Vec3(WindTurbineGLTF.position.x, globals.windTurbine.towerHigh.boundingBox.max.y+dimension.y, WindTurbineGLTF.position.z+2);
+        const offset2 = new CANNON.Vec3(WindTurbineGLTF.position.x, globals.windTurbine.towerHigh.boundingBox.max.y+10, WindTurbineGLTF.position.z);
+         window.console.log(globals.physics.bodies);
+
+        globals.physics.bodies[1].addShape( new CANNON.Box(dimension), offset);
+
+    globals.physics.bodies[1].addShape( new CANNON.Box(dimension2), offset2);
+
+        //  const offset2 = new CANNON.Vec3(this.gearbox.rotorMount.x, this.gearbox.rotorMount.y, this.gearbox.rotorMount.z);
+        // const rotation = new CANNON.Quaternion().setFromEuler(0, 0, 0, "XYZ");
+        //globals.physics.bodies[0].addShape(new CANNON.Cylinder(40, 40, 1, 1), offset2, rotation);
+        // globals.physics.bodies[0].addShape(new CANNON.Cylinder(1, 1, 1, 1));
+        //  globals.physics.bodies[0].addShape(new CANNON.Cylinder(1, 1, 1, 1));
+
+
+
 
     globals.scene.add(WindTurbineGLTF);
+
+
+
+
 
   });
 

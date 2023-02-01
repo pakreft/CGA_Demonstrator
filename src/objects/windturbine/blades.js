@@ -102,8 +102,8 @@ export default class Blades extends THREE.Mesh {
             var worldPosition = new THREE.Vector3();
            //( worldPosition );
             window.console.log( this,this.getWorldPosition(new THREE.Vector3()));
-            const offsetX = this.getWorldPosition(new THREE.Vector3()).x;
-            const offsetY = this.getWorldPosition(new THREE.Vector3()).y+this.geometry.parameters.height/2;
+           const offsetX = this.getWorldPosition(new THREE.Vector3()).x;
+             const offsetY = this.getWorldPosition(new THREE.Vector3()).y+this.geometry.parameters.height/2;
             const offsetZ = this.getWorldPosition(new THREE.Vector3()).z+this.geometry.parameters.depth/2;
             const dimX = this.geometry.parameters.width;
             const dimY = this.geometry.parameters.height;
