@@ -13,6 +13,7 @@ export default function setupRenderer() {
   globals.renderer.setSize(window.innerWidth, window.innerHeight);
   globals.renderer.setClearColor(backgroundColor);
   globals.renderer.shadowMap.enabled = true;
+  globals.renderer.gammaOutput = true;
 
   document.getElementById('3d_content').appendChild(globals.renderer.domElement);
 }

@@ -31,8 +31,8 @@ export default function addTestObj() {
 
     //Tower Texture
     var towerTexture = new THREE.TextureLoader().load( "src/assets/Textures/windturbine_texture.png" );
-    //towerTexture.wrapS = THREE.RepeatWrapping;
-    //towerTexture.wrapT = THREE.RepeatWrapping;
+    towerTexture.wrapS = THREE.RepeatWrapping;
+    towerTexture.wrapT = THREE.RepeatWrapping;
     towerTexture.repeat.set(1,1);
 
     var towerMaterial = new THREE.MeshBasicMaterial( { map: towerTexture} );
@@ -62,7 +62,7 @@ export default function addTestObj() {
       if (child.name === 'Gearbox') {
         child.traverse( function ( child ) {
           if ( child.isMesh ) {
-            window.console.log("child",child);
+
             child.material = gearboxMaterial;
           }
         });
@@ -71,7 +71,6 @@ export default function addTestObj() {
       if (child.name === 'Blades') {
         child.traverse( function ( child ) {
           if ( child.isMesh ) {
-            window.console.log("child",child);
             child.material = gearboxMaterial;
           }
         });
@@ -87,7 +86,6 @@ export default function addTestObj() {
       if (child.name === 'Hub') {
         child.traverse( function ( child ) {
           if ( child.isMesh ) {
-            window.console.log("child",child);
             child.material = HubMaterial;
           }
         });
@@ -101,7 +99,6 @@ export default function addTestObj() {
 
 
     globals.scene.add(WindTurbineGLTF);
-  window.console.log(WindTurbineGLTF);
 
   });
 
@@ -119,12 +116,11 @@ export default function addTestObj() {
 
 
     globals.scene.add(WindsackGLTF);
-    window.console.log(WindsackGLTF);
+
 
 });
 
   globals.scene.add(new Ground());
-  window.console.log(globals.scene);
 
   var box = new THREE.Box3();
   for (var i = 0; i < globals.scene.children.length; i++) {
@@ -132,7 +128,6 @@ export default function addTestObj() {
 
     // check if the child is a mesh
     if (mesh.isGroup) {
-      window.console.log("isGroup!",mesh);
       // update the bounding box to fit the mesh
       box.setFromObject(mesh);
 

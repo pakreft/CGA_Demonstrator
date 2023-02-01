@@ -1,5 +1,8 @@
 import * as THREE from "three";
 import * as TWEEN from 'tween';
+import {globals} from "../../setups/globals.js";
+import * as CANNON from '../../../lib/cannon-es-0.20.0/dist/cannon-es.js';
+
 export const initRotation =0;
 
 export default class Gearbox extends THREE.Mesh {
@@ -9,7 +12,7 @@ export default class Gearbox extends THREE.Mesh {
         const height = 6;
         const depth = 16;
         const materialColor = 0xaaaaaa;
-        const geometry = new THREE.BoxGeometry(width,height,depth,16,16,16);
+        const geometry = new THREE.BoxGeometry(width,height,depth,1,1,1);
 
         const texture = new THREE.TextureLoader().load( "src/assets/Textures/gearbox_texture.png" );
         texture.rotation = THREE.MathUtils.degToRad(0);
@@ -83,6 +86,36 @@ export default class Gearbox extends THREE.Mesh {
 
     }
 
+    addPhysics() {
+        if (this.loadingDone === false) {
+            window.setTimeout(this.addPhysics.bind(this), 100);
+        } else {
+            var cannonPointsRaw = Array.prototype.slice.call(this.geometry.attributes.position.array);
 
+            var cannonPointsRounded = cannonPointsRaw.map(function(num) {
+                return Number(num.toFixed(3));
+            });
+
+            var cannonPoints = [];
+
+            for (var i = 0; i < cannonPointsRounded.length; i += 3) {
+                cannonPoints.push(cannonPointsRounded.slice(i, i + 3));
+
+            }
+
+            window.console.log(cannonPoints);
+           // window.console.log(this.geometry);
+            var cannonFacesRaw = Array.prototype.slice.call(this.geometry.index.array);
+            var cannonFaces= [];
+
+            for (var r = 0; r < cannonFacesRaw.length; r += 4) {
+                cannonFaces.push(cannonFacesRaw.slice(r, r + 4));
+
+            }
+            //window.console.log(cannonFaces);
+
+            globals.physics.addConvexPolyhedron(this, 3, cannonPoints, cannonFaces, true);
+        }
+    }
 
 }

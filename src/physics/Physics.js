@@ -1,9 +1,10 @@
 import * as CANNON from '../../lib/cannon-es-0.20.0/dist/cannon-es.js';
 import CannonDebugger from "../../lib/cannon-es-debugger-1.0.0/dist/cannon-es-debugger.js";
+import {globals} from '../setups/globals.js';
 
 export default class Physics {
 
-  constructor(debugRendering = false) {
+  constructor(debugRendering = true) {
 
     this.world = new CANNON.World();
 
@@ -13,7 +14,7 @@ export default class Physics {
     this.bodies = [];
 
     if (debugRendering) {
-      this.debugger = new CannonDebugger(window.scene, this.world.bodies);
+      this.debugger = new CannonDebugger(globals.scene, this.world);
     }
   }
 
@@ -52,6 +53,13 @@ export default class Physics {
       this.objects[i].position.copy(this.bodies[i].position);
       this.objects[i].quaternion.copy(this.bodies[i].quaternion);
     }
+
+
+    // Update debugger
+    if (this.debugger !== null) {
+      this.debugger.update();
+    }
+
   }
 
   getWorld() {
@@ -122,6 +130,9 @@ export default class Physics {
     vertices.forEach(function (position) {
       cannonVertices.push(new CANNON.Vec3(position[0], position[1], position[2]));
     });
+    window.console.log(cannonVertices);
+    window.console.log(faces);
+
     body.addShape(new CANNON.ConvexPolyhedron({vertices: cannonVertices, faces: faces}));
 
     // Copy initial transformation from visual object
