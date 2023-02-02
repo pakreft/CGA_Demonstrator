@@ -56,10 +56,14 @@ function onChangeSunPosition(p) {
  */
 function onChangeBladeAngle(p) {
   if (p > 0&& p < 90){
-    globals.windTurbine.blade1.changeBladeAngle(THREE.MathUtils.degToRad(p));
-    globals.windTurbine.blade2.changeBladeAngle(THREE.MathUtils.degToRad(p));
-    globals.windTurbine.blade3.changeBladeAngle(THREE.MathUtils.degToRad(p));
-    window.console.log(p);
+    globals.windTurbineGLTF.rotateBlade(globals.windTurbineGLTF.blade1, THREE.MathUtils.degToRad(p));
+    globals.windTurbineGLTF.rotateBlade(globals.windTurbineGLTF.blade2, THREE.MathUtils.degToRad(p));
+    globals.windTurbineGLTF.rotateBlade(globals.windTurbineGLTF.blade3, THREE.MathUtils.degToRad(p));
+
+    //globals.windTurbine.blade1.changeBladeAngle(THREE.MathUtils.degToRad(p));
+    //globals.windTurbine.blade2.changeBladeAngle(THREE.MathUtils.degToRad(p));
+    //globals.windTurbine.blade3.changeBladeAngle(THREE.MathUtils.degToRad(p));
+    //window.console.log(p);
   }
 
 }
