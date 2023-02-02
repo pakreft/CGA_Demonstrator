@@ -6,77 +6,78 @@ export default class WindTurbineGLTF extends THREE.Group {
   constructor() {
     super();
 
-    this.head;
-    this.hub;
-    this.blades;
-    this.blade1;
-    this.blade2;
-    this.blade3;
+    this.head = null;
+    this.hub = null;
+    this.blades = null;
+    this.blade1 = null;
+    this.blade2 = null;
+    this.blade3 = null;
+
+    this.loadingDone = false;
 
     // Textures -----
     const textureLoader = new THREE.TextureLoader();
 
-    // Tower
     const towerTexture = textureLoader.load("src/assets/Textures/windturbine_texture.png");
     this.towerMaterial = new THREE.MeshBasicMaterial({ map: towerTexture});
 
-    // Gearbox
     this.gearboxMaterial = new THREE.MeshStandardMaterial({
       color: 0xffffff,
       roughness: 0.7,
       metalness: 0.4,
     });
 
-    // Hub
     this.hubMaterial = new THREE.MeshStandardMaterial({
       color: 0xfda300,
       roughness: 0.7,
       metalness: 0.3,
     });
 
-    this.load(this);
+    this.load();
   }
 
-  load(thisWindTurbine) {
+  load() {
     const modelPath = 'src/assets/Models/windrad_export.gltf';
     const loader = new GLTFLoader();
+    let self = this;
 
     loader.load(modelPath, function(gltf) {
-      thisWindTurbine.add(gltf.scene);
+      self.add(gltf.scene);
 
       gltf.scene.traverse( (child) => {
         switch (child.name) {
           case 'Head':
-            thisWindTurbine.head = child;
+            self.head = child;
             break;
 
           case 'Hub001':
-            thisWindTurbine.hub = child;
+            self.hub = child;
+            //window.console.log(self.hub);
             break;
 
           case 'Blades':
-            thisWindTurbine.blades = child;
+            self.blades = child;
             break;
 
           case 'Blade1':
-            thisWindTurbine.blade1 = child;
-            child.material = thisWindTurbine.gearboxMaterial;
+            self.blade1 = child;
+            child.material = self.gearboxMaterial;
             break;
 
           case 'Blade2':
-            thisWindTurbine.blade2 = child;
-            child.material = thisWindTurbine.gearboxMaterial;
+            self.blade2 = child;
+            child.material = self.gearboxMaterial;
             break;
 
           case 'Blade3':
-            thisWindTurbine.blade3 = child;
-            child.material = thisWindTurbine.gearboxMaterial;
+            self.blade3 = child;
+            child.material = self.gearboxMaterial;
             break;
 
           case 'Tower':
             child.traverse((child2) => {
               if (child2.isMesh) {
-                child2.material = thisWindTurbine.towerMaterial;
+                child2.material = self.towerMaterial;
               }
             });
             break;
@@ -84,7 +85,7 @@ export default class WindTurbineGLTF extends THREE.Group {
           case 'Gearbox':
             child.traverse((child2) => {
               if (child2.isMesh) {
-                child2.material = thisWindTurbine.gearboxMaterial;
+                child2.material = self.gearboxMaterial;
               }
             });
             break;
@@ -92,12 +93,14 @@ export default class WindTurbineGLTF extends THREE.Group {
           case 'Hub':
             child.traverse((child2) => {
               if (child2.isMesh) {
-                child2.material = thisWindTurbine.hubMaterial;
+                child2.material = self.hubMaterial;
               }
             });
             break;
         }
       });
+
+      self.loadingDone = true;
     });
   }
 

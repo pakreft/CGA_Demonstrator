@@ -25,8 +25,15 @@ export default function addTestObj() {
   globals.scene.add(button);
   globals.scene.add(button2);
 
-  let wt = new WindTurbineGLTF();
-  globals.scene.add(wt);
+  // Wait for loading done
+  const windTurbineGLTF = new WindTurbineGLTF();
+  if (windTurbineGLTF.loadingDone === false) {
+    window.setTimeout(function() {
+      globals.scene.add(windTurbineGLTF);
+    }, 2000);
+  }
+
+
 
   let loader = new GLTFLoader();
 // Load the glTF file
