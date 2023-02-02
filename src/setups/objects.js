@@ -26,10 +26,13 @@ export default function addTestObj() {
   globals.scene.add(button2);
 
   // Wait for loading done
-  const windTurbineGLTF = new WindTurbineGLTF();
-  if (windTurbineGLTF.loadingDone === false) {
+  const wtGLTF = new WindTurbineGLTF();
+  if (wtGLTF.loadingDone === false) {
     window.setTimeout(function() {
-      globals.scene.add(windTurbineGLTF);
+      globals.scene.add(wtGLTF);
+      globals.windTurbineGLTF = wtGLTF;
+      window.console.log(wtGLTF.blade1);
+
     }, 2000);
   }
 
@@ -37,7 +40,7 @@ export default function addTestObj() {
 
   let loader = new GLTFLoader();
 // Load the glTF file
-  loader.load("src/assets/Models/windrad_export.gltf", function (gltf) {
+  loader.load("src/assets/Models/windTurbine.gltf", function (gltf) {
     const WindTurbineGLTF =  gltf.scene;
     // Add the model to the scene
     WindTurbineGLTF.position.set(-30,0,0);
