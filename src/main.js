@@ -11,6 +11,7 @@ import * as TWEEN from 'tween';
 
 import updateAspectRatio from './eventfunctions/updateAspectRatio.js';
 import {highlightOnMouseOver, actionOnMouseClick} from "./eventfunctions/raycasting.js";
+import {keyDownAction,keyUpAction } from "./eventfunctions/executeKeyAction.js";
 
 import initOutlinePass from "./postprocessing/postprocessing.js";
 
@@ -33,7 +34,7 @@ function mainLoop() {
 
 
   const delta = clock.getDelta();
-  //globals.renderer.render(globals.scene, globals.camera);
+  globals.renderer.render(globals.scene, globals.camera);
   globals.physics.update(delta);
 
   window.compose.render();
@@ -47,3 +48,6 @@ window.onload = main;
 window.onresize = updateAspectRatio;
 window.onmousemove = highlightOnMouseOver;
 window.onmousedown = actionOnMouseClick;
+window.onkeydown = keyDownAction;
+window.onkeyup = keyUpAction;
+

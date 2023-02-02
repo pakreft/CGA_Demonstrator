@@ -64,8 +64,7 @@ export default class WindTurbine extends THREE.Group  {
         this.blade1Group.rotateOnWorldAxis(new THREE.Vector3(1,0,0),THREE.MathUtils.degToRad(rot1.x));
         this.blade1Group.rotateOnWorldAxis(new THREE.Vector3(0,1,0),THREE.MathUtils.degToRad(rot1.y));
         this.blade1Group.rotateOnWorldAxis(new THREE.Vector3(0,0,1),THREE.MathUtils.degToRad(rot1.z));
-        this.box1 = new THREE.BoxHelper(this.blade1Group,0xffff00);
-        globals.scene.add(this.box1);
+
 
 
         //Adding Blade 2 to the BladeGroup
@@ -77,8 +76,7 @@ export default class WindTurbine extends THREE.Group  {
         this.blade2Group.rotation.x = THREE.MathUtils.degToRad(rot2.x);
         this.blade2Group.rotation.y = THREE.MathUtils.degToRad(rot2.y);
         this.blade2Group.rotation.z = THREE.MathUtils.degToRad(rot2.z);
-        this.box2 = new THREE.BoxHelper(this.blade2Group,0xffff00);
-        globals.scene.add(this.box2);
+
 
         //Adding Blade 3 to the BladeGroup
         this.blade3 = new blade(this.gearbox.rotorMount, new THREE.Vector3(0, 0, 240));
@@ -91,8 +89,7 @@ export default class WindTurbine extends THREE.Group  {
         this.blade3Group.rotateOnWorldAxis(new THREE.Vector3(0,0,1),THREE.MathUtils.degToRad(rot3.z));
 
 
-        this.box3 = new THREE.BoxHelper(this.blade3Group,0xffff00);
-        globals.scene.add(this.box3);
+
 
         // Add body to physical world
 
@@ -107,8 +104,9 @@ export default class WindTurbine extends THREE.Group  {
         if (this.loadingDone === false) {
             window.setTimeout(this.addPhysics.bind(this), 100);
         } else {
-            window.console.log(this);
-            globals.physics.addCylinder(this,0,6,10,100,8,this.position.x,this.position.y+51,this.position.z);
+            window.console.log(this.position);
+            globals.physics.addCylinder(this,100,6,6,100,8,this.position.x,this.position.y+50,this.position.z);
+            //globals.physics.addCylinder(this,10,6,6,100,8,0,55,0);
 
             const dimension = new CANNON.Vec3(4, 3, 10);
             const dimension2 = new CANNON.Vec3(35, 35, 1);
@@ -117,6 +115,9 @@ export default class WindTurbine extends THREE.Group  {
 
             globals.physics.bodies[0].addShape( new CANNON.Box(dimension), offset);
             globals.physics.bodies[0].addShape( new CANNON.Box(dimension2), offset2);
+            globals.physics.bodies[0].inertia.set(100,100,100);
+
+            //globals.physics.bodies[0].velocity.set(0,0,0);
 
           //  const offset2 = new CANNON.Vec3(this.gearbox.rotorMount.x, this.gearbox.rotorMount.y, this.gearbox.rotorMount.z);
            // const rotation = new CANNON.Quaternion().setFromEuler(0, 0, 0, "XYZ");

@@ -15,30 +15,28 @@ import WindTurbineGLTF from "../objects/WindTurbineGLTF.js";
 
 export default function addTestObj() {
 
-  let windTurbine = new WindTurbine(new THREE.Vector3(30,0,0),new THREE.Vector3(0,0,0));
+  let windTurbine = new WindTurbine(new THREE.Vector3(0,0,0),new THREE.Vector3(0,0,0));
   globals.scene.add(windTurbine);
   globals.windTurbine = windTurbine;
-
   let button = new Button({x:20, y:20, z:0}, {x:45, y:0, z:45});
   let button2 = new Button({x:0, y:20, z:0}, {x:45, y:0, z:0});
-
   globals.scene.add(button);
   globals.scene.add(button2);
 
   // Wait for loading done
-  const wtGLTF = new WindTurbineGLTF();
-  if (wtGLTF.loadingDone === false) {
+  const windTurbineGLTF = new WindTurbineGLTF();
+  if (windTurbineGLTF.loadingDone === false) {
     window.setTimeout(function() {
-      globals.scene.add(wtGLTF);
-      globals.windTurbineGLTF = wtGLTF;
-      window.console.log(wtGLTF.blade1);
 
-    }, 2000);
+      globals.scene.add(windTurbineGLTF);
+      globals.windTurbineGLTF = windTurbineGLTF;
+      window.console.log(windTurbineGLTF.blade1);
+      }, 2000);
   }
 
 
-
   let loader = new GLTFLoader();
+
 // Load the glTF file
   loader.load("src/assets/Models/windTurbine.gltf", function (gltf) {
     const WindTurbineGLTF =  gltf.scene;
@@ -145,14 +143,14 @@ export default function addTestObj() {
   loader.load("src/assets/Models/windsack.gltf", function (gltf) {
     const WindsackGLTF =  gltf.scene;
     // Add the model to the scene
-    WindsackGLTF.position.set(0,0,-20);
-
+    WindsackGLTF.position.set(-40,0,-20);
     globals.scene.add(WindsackGLTF);
-
-
 });
 
-  globals.scene.add(new Ground());
+
+  const ground = new Ground();
+  globals.scene.add(ground);
+
 
   var box = new THREE.Box3();
   for (var i = 0; i < globals.scene.children.length; i++) {
