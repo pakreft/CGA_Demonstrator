@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'gltfloader';
+import {globals} from '../setups/globals.js';
+import * as CANNON from "../../lib/cannon-es-0.20.0/dist/cannon-es.js";
 
 export default class WindTurbineGLTF extends THREE.Group {
 
@@ -14,6 +16,7 @@ export default class WindTurbineGLTF extends THREE.Group {
     this.blade3 = null;
 
     this.loadingDone = false;
+    this.position.set(-100,0,0);
 
     // Textures -----
     const textureLoader = new THREE.TextureLoader();
@@ -34,6 +37,7 @@ export default class WindTurbineGLTF extends THREE.Group {
     });
 
     this.load();
+    this.physics();
   }
 
   load() {
@@ -99,9 +103,36 @@ export default class WindTurbineGLTF extends THREE.Group {
             break;
         }
       });
-
       self.loadingDone = true;
     });
   }
+
+  physics(){
+    window.console.log(this.position.x);
+    globals.physics.addCylinder(this,1000,6,6,100,8,0,this.position.y+50,0);
+
+    const dimension = new CANNON.Vec3(4, 4, 10);
+    const dimension2 = new CANNON.Vec3(50, 50, 1);
+    //const offset = new CANNON.Vec3(WindTurbineGLTF.position.x, globals.windTurbine.towerHigh.boundingBox.max.y+dimension.y, WindTurbineGLTF.position.z+2);
+    const offset = new CANNON.Vec3(0,globals.windTurbine.towerHigh.boundingBox.max.y+2,0);
+    const offset2 = new CANNON.Vec3(0, globals.windTurbine.towerHigh.boundingBox.max.y,12);
+    window.console.log(globals.physics.bodies);
+
+    globals.physics.bodies[1].addShape( new CANNON.Box(dimension), offset);
+
+    globals.physics.bodies[1].addShape( new CANNON.Box(dimension2), offset2);
+
+    //  const offset2 = new CANNON.Vec3(this.gearbox.rotorMount.x, this.gearbox.rotorMount.y, this.gearbox.rotorMount.z);
+    // const rotation = new CANNON.Quaternion().setFromEuler(0, 0, 0, "XYZ");
+    //globals.physics.bodies[0].addShape(new CANNON.Cylinder(40, 40, 1, 1), offset2, rotation);
+    // globals.physics.bodies[0].addShape(new CANNON.Cylinder(1, 1, 1, 1));
+    //  globals.physics.bodies[0].addShape(new CANNON.Cylinder(1, 1, 1, 1));
+
+
+
+  };
+
+
+
 
 }
