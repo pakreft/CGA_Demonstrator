@@ -7,6 +7,7 @@ import Blades from '../objects/windturbine/blades.js';
 import { GLTFLoader } from '../../lib/three.js-r145/examples/jsm/loaders/GLTFLoader.js';
 import Button from "../objects/controlPanel/button.js";
 import * as CANNON from "../../lib/cannon-es-0.20.0/dist/cannon-es.js";
+import WindTurbineGLTF from "../objects/WindTurbineGLTF.js";
 
 
 
@@ -23,6 +24,9 @@ export default function addTestObj() {
 
   globals.scene.add(button);
   globals.scene.add(button2);
+
+  let wt = new WindTurbineGLTF();
+  globals.scene.add(wt);
 
   let loader = new GLTFLoader();
 // Load the glTF file
@@ -50,7 +54,7 @@ export default function addTestObj() {
     });
 
     //Gearbox Texture
-    var gearboxTexture = new THREE.TextureLoader().load( "src/assets/Textures/gearbox_texture.png" );
+    var gearboxTexture = new THREE.TextureLoader().load("src/assets/Textures/gearbox_texture.png");
     gearboxTexture.repeat.set(1,1);
     //gearboxTexture.wrapS = THREE.RepeatWrapping;
     //gearboxTexture.wrapT = THREE.RepeatWrapping;
@@ -58,7 +62,6 @@ export default function addTestObj() {
       color: 0xffffff,
       roughness: 0.7,
       metalness: 0.4,
-
     });
     WindTurbineGLTF.traverse((child) => {
       if (child.name === 'Gearbox') {
@@ -133,14 +136,6 @@ export default function addTestObj() {
     const WindsackGLTF =  gltf.scene;
     // Add the model to the scene
     WindsackGLTF.position.set(0,0,-20);
-
-
-
-
-
-
-
-
 
     globals.scene.add(WindsackGLTF);
 
