@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'gltfloader';
 
+import TweenUtils from '../assets/TweenUtils.js';
+
 export default class WindTurbineGLTF extends THREE.Group {
 
   constructor() {
@@ -18,7 +20,7 @@ export default class WindTurbineGLTF extends THREE.Group {
     // Textures -----
     const textureLoader = new THREE.TextureLoader();
 
-    const towerTexture = textureLoader.load("src/assets/Textures/windturbine_texture.png");
+    const towerTexture = textureLoader.load('src/assets/Textures/windturbine_texture.png');
     this.towerMaterial = new THREE.MeshBasicMaterial({ map: towerTexture});
 
     this.gearboxMaterial = new THREE.MeshStandardMaterial({
@@ -37,7 +39,7 @@ export default class WindTurbineGLTF extends THREE.Group {
   }
 
   load() {
-    const modelPath = 'src/assets/Models/windrad_export.gltf';
+    const modelPath = 'src/assets/Models/windTurbine.gltf';
     const loader = new GLTFLoader();
     let self = this;
 
@@ -52,7 +54,6 @@ export default class WindTurbineGLTF extends THREE.Group {
 
           case 'Hub001':
             self.hub = child;
-            //window.console.log(self.hub);
             break;
 
           case 'Blades':
@@ -60,18 +61,18 @@ export default class WindTurbineGLTF extends THREE.Group {
             break;
 
           case 'Blade1':
-            self.blade1 = child;
             child.material = self.gearboxMaterial;
+            self.blade1 = child;
             break;
 
           case 'Blade2':
-            self.blade2 = child;
             child.material = self.gearboxMaterial;
+            self.blade2 = child;
             break;
 
           case 'Blade3':
-            self.blade3 = child;
             child.material = self.gearboxMaterial;
+            self.blade3 = child;
             break;
 
           case 'Tower':
@@ -102,6 +103,42 @@ export default class WindTurbineGLTF extends THREE.Group {
 
       self.loadingDone = true;
     });
+
+  }
+
+  rotateHead() {
+    TweenUtils.rotate(
+        this.head,
+        new THREE.Euler(
+            THREE.MathUtils.degToRad(0),
+            THREE.MathUtils.degToRad(360),
+            THREE.MathUtils.degToRad(0)),
+        3000
+    ).start();
+  }
+
+  rotateHub() {
+    TweenUtils.rotate(
+        this.hub,
+        new THREE.Euler(
+            THREE.MathUtils.degToRad(0),
+            THREE.MathUtils.degToRad(0),
+            THREE.MathUtils.degToRad(360)),
+        3000
+    ).start()
+  }
+
+  rotateBlade(blade, val) {
+    const bladePos = blade.position;
+    const bladeRot = blade.rotation;
+
+    let target = new THREE.Vector3(bladeRot.x, val, bladeRot.z);
+
+
+    const finalTarget = target;
+
+    blade.position.set(finalTarget.x, finalTarget.y, finalTarget.z);
+
   }
 
 }
